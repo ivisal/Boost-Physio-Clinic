@@ -8,13 +8,12 @@ public class Patient {
     private String address;
     private String phone;
 
-
-    public Patient(int  pId, String pName){
+    public Patient(int pId, String pName) {
         this.setId(pId);
         this.setPatientName(pName);
     }
 
-    public Patient(){
+    public Patient() {
         this.pId = 1;
         this.patientName = "John Doe";
         this.age = 0;
@@ -23,43 +22,55 @@ public class Patient {
         this.phone = "";
     }
 
-    public void setId(int pId){
+    public void setId(int pId) {
         this.pId = pId;
     }
-    public void setPatientName(String pName){
+
+    public void setPatientName(String pName) {
         this.patientName = pName;
     }
-    public void setAge(int age){
+
+    public void setAge(int age) {
         this.age = age;
     }
-    public void setGender(String gender){
+
+    public void setGender(String gender) {
         this.gender = gender;
     }
-    public void setAddress(String address){
+
+    public void setAddress(String address) {
         this.address = address;
     }
-    public void setPhone(String phone){
+
+    public void setPhone(String phone) {
         this.phone = phone;
     }
-    public int getId(){
+
+    public int getId() {
         return this.pId;
     }
-    public String getPatientName(){
+
+    public String getPatientName() {
         return this.patientName;
     }
-    public int getAge(){
+
+    public int getAge() {
         return this.age;
     }
-    public String getGender(){
+
+    public String getGender() {
         return this.gender;
     }
-    public String getAddress(){
+
+    public String getAddress() {
         return this.address;
     }
-    public String getPhone(){
+
+    public String getPhone() {
         return this.phone;
     }
-    public String getPatientCredentials(){
+
+    public String getPatientCredentials() {
         return "Patient ID: " + this.pId + "\n" +
                 "Name: " + this.patientName + "\n" +
                 "Age: " + this.age + "\n" +
