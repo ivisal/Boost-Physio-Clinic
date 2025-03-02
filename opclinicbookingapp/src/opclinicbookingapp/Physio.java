@@ -48,4 +48,8 @@ public class Physio {
         }
         System.out.println("Enter the respective ID you may wish an appointment");
     }
+
+    public ArrayList<HashMap<String, String>> getAvailablePhysios() {
+        return availablePhysios;
+    }
 }

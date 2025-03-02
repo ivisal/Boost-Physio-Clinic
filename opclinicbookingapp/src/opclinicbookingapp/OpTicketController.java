@@ -3,45 +3,55 @@ package opclinicbookingapp;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import opclinicbookingapp.Helpers.helpersFunction;
 
 public class OpTicketController {
     Scanner input = new Scanner(System.in);
     Scanner inputString = new Scanner(System.in);
+    helpersFunction helpers = new helpersFunction();
 
     // Fetches patient details
     private Patient bookAnAppointment() {
         ArrayList<Integer> randomNumbersArray = new ArrayList<>();
         String patientName = "";
         int physioId = input.nextInt();
-        Patient patient = new Patient();
-        Random random = new Random();
-        int uniqueID = random.nextInt(90) + 10; // Generates a random number between 10 and 99
-        while (!randomNumbersArray.contains(uniqueID))
-            randomNumbersArray.add(uniqueID);
-        patient.setId(uniqueID);
-        System.out.println("Please enter patient name: ");
-        patientName = inputString.nextLine();
-        patient.setPatientName(patientName);
-        System.out.println("Please enter patient age: ");
-        int age = input.nextInt();
-        patient.setAge(age);
-        System.out.println("Please enter patient gender: (M / F)");
-        String gender = inputString.nextLine().toUpperCase();
-        while (gender.length() != 1 || !(gender.equals("M") || gender.equals("F"))) {
-            System.out.println("Invalid input! Please enter 'M' for Male or 'F' for Female.");
-            gender = inputString.nextLine().toUpperCase();
+        if (helpers.isValidPhsio(physioId)) {
+
+            Patient patient = new Patient();
+            Random random = new Random();
+            int uniqueID = random.nextInt(90) + 10; // Generates a random number between
+            while (!randomNumbersArray.contains(uniqueID))
+                randomNumbersArray.add(uniqueID);
+
+            patient.setId(uniqueID);
+            System.out.println("Please enter patient name: ");
+            patientName = inputString.nextLine();
+            patient.setPatientName(patientName);
+            System.out.println("Please enter patient age: ");
+            int age = input.nextInt();
+            patient.setAge(age);
+            System.out.println("Please enter patient gender: (M / F)");
+            String gender = inputString.nextLine().toUpperCase();
+            while (gender.length() != 1 || !(gender.equals("M") || gender.equals("F"))) {
+                System.out.println("Invalid input! Please enter 'M' for Male or 'F' for Female.");
+                gender = inputString.nextLine().toUpperCase();
+            }
+
+            if ((gender.equals("F")))
+                patient.setGender("Female");
+
+            System.out.println("Please enter patient address: ");
+            String address = inputString.nextLine();
+            patient.setAddress(address);
+            System.out.println("Please enter patient phone number: ");
+            String phoneNumber = inputString.nextLine();
+            patient.setPhone(phoneNumber);
+            return patient;
+        } else {
+            helpers.throwError();
+            return null;
         }
 
-        if ((gender.equals("F")))
-            patient.setGender("Female");
-
-        System.out.println("Please enter patient address: ");
-        String address = inputString.nextLine();
-        patient.setAddress(address);
-        System.out.println("Please enter patient phone number: ");
-        String phoneNumber = inputString.nextLine();
-        patient.setPhone(phoneNumber);
-        return patient;
     }
 
     // list actions that a user can perform initially
@@ -81,8 +91,7 @@ public class OpTicketController {
                 System.out.println("Exit");
                 return;
             default:
-                System.out.println("Invalid choice");
-                System.out.println("Invalid choice");
+                helpers.throwError();
                 break;
         }
 
