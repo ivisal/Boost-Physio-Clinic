@@ -3,16 +3,16 @@ package opclinicbookingapp;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import opclinicbookingapp.Helpers.helpersFunction;
 
 public class OpTicketController {
     Scanner input = new Scanner(System.in);
     Scanner inputString = new Scanner(System.in);
 
     // Fetches patient details
-    private Patient patientDetailsInput() {
+    private Patient bookAnAppointment() {
         ArrayList<Integer> randomNumbersArray = new ArrayList<>();
         String patientName = "";
+        int physioId = input.nextInt();
         Patient patient = new Patient();
         Random random = new Random();
         int uniqueID = random.nextInt(90) + 10; // Generates a random number between 10 and 99
@@ -53,14 +53,10 @@ public class OpTicketController {
         System.out.println("4. Exit");
     }
 
-    private void listAvailablePhysio() {
+    public void listAvailablePhysio() {
         System.out.println();
-        Physio listPhysios = new Physio();
-        listPhysios.availablePhysios();
-        helpersFunction helper = new helpersFunction();
-
-        System.err.println(helper.getTime());
-
+        Physio physio = new Physio();
+        physio.showAvailablePhysios();
     }
 
     public OpTicketController() {
@@ -70,8 +66,8 @@ public class OpTicketController {
         System.out.print("Enter your choice: ");
         switch (input.nextInt()) {
             case 1:
-                System.out.println("Book an appointment");
                 listAvailablePhysio();
+                bookAnAppointment();
                 // Patient patient = patientDetailsInput();
                 // System.out.print(patient.getPatientCredentials());
                 break;

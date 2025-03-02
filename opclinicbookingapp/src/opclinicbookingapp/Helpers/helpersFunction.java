@@ -1,10 +1,17 @@
 package opclinicbookingapp.Helpers;
 
-import java.time.LocalTime;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 public class helpersFunction {
     public String getTime() {
-        LocalTime currentTime = LocalTime.now();
-        return currentTime.plusHours(1) + " " + currentTime.plusHours(5);
+        Instant timeStamp = Instant.now();
+        LocalDateTime ldt = LocalDateTime.ofInstant(timeStamp, ZoneOffset.UTC);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h a");
+        String formattedTime = ldt.format(formatter);
+        int hour = ldt.getHour();
+        return formattedTime + " - " + (hour + 4) + " " + (hour + 4 >= 12 ? "PM" : "AM");
     }
 }
