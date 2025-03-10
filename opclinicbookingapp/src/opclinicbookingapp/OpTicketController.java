@@ -16,14 +16,15 @@ public class OpTicketController {
     // Fetches patient details and books an appointment
     private Patient bookAnAppointment() {
         System.out.println();
-        System.out.print("Enter the respective ID you may wish an appointment: ");
+        System.out.print("Enter the respective ID you may wish an appointment (enter 0 to exit): ");
 
         ArrayList<Integer> randomNumbersArray = new ArrayList<>();
         String patientName = "";
         int physioId = input.nextInt();
         int opCount = appointments.size() + 1;
 
-        if (helpers.isValidPhsio(physioId)) {
+
+        if (physioId > 0 && helpers.isValidPhsio(physioId)  ) {
             HashMap<String, Integer> appointment = new HashMap<>();
             Patient patient = new Patient();
             Random random = new Random();
@@ -67,8 +68,17 @@ public class OpTicketController {
             printReceipt(patient, 30007, 200);
             return patient;
         } else {
-            helpers.throwError(throwMessage);
-            return null;
+            if(physioId == 0){
+                throwMessage = "Thankyou for visiting Boost Physio Clinic, have a nice day.";
+                helpers.throwError(throwMessage);
+                System.exit(1);
+                return null;
+            }else{
+                helpers.throwError(throwMessage);
+                System.exit(1);
+                return null;
+            }
+
         }
     }
 
@@ -111,7 +121,7 @@ public class OpTicketController {
         System.out.println("Booking Slot: " + bookedPhysio.get("Available Time"));
         System.out.println();
         System.out.println("Thankyou for booking with Boost Physio Clinic, have a nice day.");
-
+        System.exit(1);
     }
     public void typeOfAppointment() {
         System.out.println();
