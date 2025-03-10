@@ -31,7 +31,7 @@ public class Physio {
     // Method to show available physiotherapists
     public void showAvailablePhysios() {
         try {
-            System.out.println("Loading the physios");
+            System.out.println("Loading the physios...");
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();

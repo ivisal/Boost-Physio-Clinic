@@ -31,6 +31,18 @@ public class helpersFunction {
         return false;
     }
 
+    public HashMap<String, String> getPhysioByKey(int physioId) {
+        Physio physio = new Physio();
+        ArrayList<HashMap<String, String>> availablePhysios = physio.getAvailablePhysios();
+
+        for (HashMap<String, String> physioMap : availablePhysios) {
+            if (physioMap.containsKey("Key") && Integer.parseInt(physioMap.get("Key")) == physioId) {
+                return physioMap;
+            }
+        }
+        return null;
+    }
+
     public String throwError() {
         System.out.println("Ooho!! Something error occured. Please try again.");
         return null;
