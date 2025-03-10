@@ -6,6 +6,8 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
+
 import opclinicbookingapp.Physio;
 
 public class helpersFunction {
@@ -43,8 +45,20 @@ public class helpersFunction {
         return null;
     }
 
-    public String throwError() {
-        System.out.println("Ooho!! Something error occured. Please try again.");
+    public HashMap<String, String> getPhysioByName(String physioName) {
+        Physio physio = new Physio();
+        ArrayList<HashMap<String, String>> availablePhysios = physio.getAvailablePhysios();
+
+        for (HashMap<String, String> physioMap : availablePhysios) {
+            if (physioMap.containsKey("Name") && Objects.equals(physioMap.get("Name"), physioName)) {
+                return physioMap;
+            }
+        }
+        return null;
+    }
+
+    public String throwError(String throwMessage) {
+        System.out.println(throwMessage);
         return null;
     }
 

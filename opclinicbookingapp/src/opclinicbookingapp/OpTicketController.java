@@ -11,9 +11,13 @@ public class OpTicketController {
     Scanner inputString = new Scanner(System.in);
     helpersFunction helpers = new helpersFunction();
     HashMap<String, HashMap<String, Integer>> appointments = new HashMap<>();
+    String throwMessage = "Ooho!! Something error occured. Please try again.";
 
     // Fetches patient details and books an appointment
     private Patient bookAnAppointment() {
+        System.out.println();
+        System.out.print("Enter the respective ID you may wish an appointment: ");
+
         ArrayList<Integer> randomNumbersArray = new ArrayList<>();
         String patientName = "";
         int physioId = input.nextInt();
@@ -63,18 +67,24 @@ public class OpTicketController {
             printReceipt(patient, 30007, 200);
             return patient;
         } else {
-            helpers.throwError();
+            helpers.throwError(throwMessage);
             return null;
         }
     }
 
     // List actions that a user can perform initially
-    private void listUserActions() {
+    private void listUserActions(int initial) {
         System.out.println();
-        System.out.print("1. Book an appointment\t\t");
-        System.out.print("2. View appointment\t\t");
-        System.out.print("3. Cancel appointment\t\t");
-        System.out.println("4. Exit");
+        if(initial==0) {
+            System.out.print("1. Book an appointment\t\t");
+            System.out.println("2. Exit");
+        }else{
+            System.out.print("1. Book an appointment\t\t");
+            System.out.print("2. View appointment\t\t");
+            System.out.print("3. Cancel appointment\t\t");
+            System.out.println("4. Exit");
+        }
+
         System.out.print("Enter your choice: ");
     }
 
@@ -96,22 +106,60 @@ public class OpTicketController {
         System.out.println();
         System.out.println("Appointment ID: " + appId);
         System.out.println("Patient Name: " + patient.getPatientName());
-        System.out.println("Physician: " + bookedPhysio.get("Name"));
+        System.out.println("Physician: " + bookedPhysio.get("Name").toUpperCase());
         System.out.println("Expertise: " + bookedPhysio.get("Expertise"));
         System.out.println("Booking Slot: " + bookedPhysio.get("Available Time"));
         System.out.println();
-        System.out.println("Thakyou for booking with Boost Physio Clinic, have a nice day.");
+        System.out.println("Thankyou for booking with Boost Physio Clinic, have a nice day.");
 
     }
+    public void typeOfAppointment() {
+        System.out.println();
+        System.out.println("1. Would you like to search by physio name ?");
+        System.out.println("2. Would you like to show all physios ?");
+        System.out.print("Enter your choice: ");
+        switch (input.nextInt()){
+            case 1:
+                System.out.print("Enter Physio name to search: ");
+                String prefferedPhysio = inputString.nextLine().toLowerCase();
+                if(!prefferedPhysio.isEmpty()){
+                    HashMap<String, String> searchedPhysio  = helpers.getPhysioByName(prefferedPhysio);
+                    if (searchedPhysio != null && !searchedPhysio.isEmpty()) {
+                        System.out.println();
+                        System.out.println("Search Results:");
+                        System.out.println("-----------------");
+                        String physioName = searchedPhysio.get("Name");  // Get the name (String) from the HashMap
+                        if (physioName != null && !physioName.isEmpty()) {
+                            physioName = physioName.substring(0, 1).toUpperCase() + physioName.substring(1).toLowerCase();
+                        }
+                        System.out.println("ID: " + searchedPhysio.get("Key"));
+                        System.out.println("Physio Name: Dr. " + physioName);
+                        System.out.println("Expertise: " + searchedPhysio.get("Expertise"));
+                        System.out.println("Avaliable From: " + searchedPhysio.get("Available Time"));
+                        bookAnAppointment();
+                    }else{
+                        throwMessage = "No Physio found!";
+                        helpers.throwError(throwMessage);
+                        System.exit(1);
+                    }
+                }else{
+                    helpers.throwError(throwMessage);
+                }
+            case 2:
+                listAvailablePhysio(); // List available physiotherapists
+        }
+    }
+
+
 
     // Perform actions based on user input
     public void performUserActions() {
         boolean running = true;
         while (running) {
-            listUserActions();
+            listUserActions(0);
             switch (input.nextInt()) {
                 case 1:
-                    listAvailablePhysio(); // List available physiotherapists
+                    typeOfAppointment();
                     bookAnAppointment(); // Book an appointment
                     break;
                 case 2:
@@ -125,7 +173,7 @@ public class OpTicketController {
                     running = false;
                     break;
                 default:
-                    helpers.throwError(); // Handle invalid input
+                    helpers.throwError(throwMessage); // Handle invalid input
                     break;
             }
         }

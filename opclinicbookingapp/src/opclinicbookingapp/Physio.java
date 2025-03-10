@@ -13,8 +13,8 @@ public class Physio {
         helpersFunction helpers = new helpersFunction();
 
         // Add physiotherapists with available time fetched from helpers
-        addPhysioByKey("30001", "Dr. John", "Physiotherapist", helpers.getTime());
-        addPhysioByKey("30007", "Dr. Edward", "ENT", "1 PM - 4 PM");
+        addPhysioByKey("30001", "john", "Physiotherapist", helpers.getTime());
+        addPhysioByKey("30007", "edward", "ENT", "1 PM - 4 PM");
     }
 
     // Method to add a new physiotherapist by key
@@ -39,14 +39,17 @@ public class Physio {
         System.out.println("Choose the Physio you may want a appointment");
         System.out.println();
         for (HashMap<String, String> physio : availablePhysios) {
+            String physioName = physio.get("Name");  // Get the name (String) from the HashMap
+            if (physioName != null && !physioName.isEmpty()) {
+                physioName = physioName.substring(0, 1).toUpperCase() + physioName.substring(1).toLowerCase();
+            }
             System.out.println("ID: " + physio.get("Key"));
-            System.out.println("Name: " + physio.get("Name"));
+            System.out.println("Name: Dr. " + physioName);
             System.out.println("Expertise: " + physio.get("Expertise"));
             System.out.println("Avaliable From: " + physio.get("Available Time"));
             System.out.println();
 
         }
-        System.out.println("Enter the respective ID you may wish an appointment");
     }
 
     public ArrayList<HashMap<String, String>> getAvailablePhysios() {
