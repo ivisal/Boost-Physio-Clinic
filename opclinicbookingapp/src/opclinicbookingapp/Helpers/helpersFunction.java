@@ -6,8 +6,10 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
+import opclinicbookingapp.Patient;
 import opclinicbookingapp.Physio;
 
 public class helpersFunction {
@@ -57,9 +59,53 @@ public class helpersFunction {
         return null;
     }
 
+    public  HashMap<String, String> getAppointmentByID(
+            HashMap<String, HashMap<String, Integer>> appointments,
+            HashMap<Integer, Patient> patients, int appointmentID) {
+
+        // Iterate through the appointments map using Map.Entry
+        for (Map.Entry<String, HashMap<String, Integer>> entry : appointments.entrySet()) {
+            HashMap<String, Integer> appointment = entry.getValue();
+
+
+            // Check if the appointmentID exists
+            if (appointment.containsKey("appointmentID") && appointment.get("appointmentID") == appointmentID) {
+                int patientID = appointment.get("patientID");
+                for (Map.Entry<Integer, Patient> item : patients.entrySet()) {
+                    Patient patient = item.getValue();  // Get the Patient object
+
+                    // Check if the patientID matches the one inside the Patient object
+                    if (patient.getId() == patientID) {
+                        HashMap<String, String> appointmentDetails = new HashMap<>();
+                        appointmentDetails.put("appointmentID", String.valueOf(appointmentID));
+                        appointmentDetails.put("patientID", String.valueOf(patient.getId()));
+                        appointmentDetails.put("patientName", patient.getPatientName());
+                        appointmentDetails.put("patientAge", String.valueOf(patient.getAge()));
+                        appointmentDetails.put("patientGender",patient.getGender());
+                        appointmentDetails.put("patientAddress",patient.getAddress());
+                        appointmentDetails.put("patientPhone",patient.getPhone());
+                        return appointmentDetails;
+                    }
+                }
+            }
+        }
+        return  null;
+    }
+
+    public boolean isValidAppointmentID(HashMap<String, HashMap<String, Integer>> appointments,int appID){
+        for (Map.Entry<String, HashMap<String, Integer>> entry : appointments.entrySet()) {
+            HashMap<String, Integer> appointment = entry.getValue();
+            // Check if the appointmentID exists
+            if (appointment.containsKey("appointmentID") && appointment.get("appointmentID") == appID) {
+                return  true;
+            }
+        }
+        return false;
+    }
+
+
     public String throwError(String throwMessage) {
         System.out.println(throwMessage);
         return null;
     }
-
 }

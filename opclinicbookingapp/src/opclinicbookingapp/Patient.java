@@ -69,6 +69,10 @@ public class Patient {
     public String getPhone() {
         return this.phone;
     }
+    @Override
+    public String toString() {
+        return "Patient{patientID=" + this.pId + ", name=" + this.patientName + ", age="+this.age+",gender="+this.gender+", address="+this.address+", phone="+this.phone+"}";
+    }
 
     public String getPatientCredentials() {
         return "Patient ID: " + this.pId + "\n" +
@@ -78,4 +82,6 @@ public class Patient {
                 "Address: " + this.address + "\n" +
                 "Phone: " + this.phone;
     }
+    // Override the toString() method to print meaningful information
+
 }
