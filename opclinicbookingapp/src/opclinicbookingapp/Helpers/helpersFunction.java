@@ -18,8 +18,9 @@ public class helpersFunction {
         LocalDateTime ldt = LocalDateTime.ofInstant(timeStamp, ZoneOffset.UTC);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h a");
         String formattedTime = ldt.format(formatter);
-        int hour = ldt.getHour();
-        return formattedTime + " - " + (hour + 4) + " " + (hour + 4 >= 12 ? "PM" : "AM");
+        LocalDateTime newTime = ldt.plusHours(4);
+        String formattedNewTime = newTime.format(formatter);
+        return formattedTime + " - " + formattedNewTime;
     }
 
     public boolean isValidPhsio(int physioID) {

@@ -77,15 +77,15 @@ public class BookingService {
         Patient patient = new Patient();
         patient.setId(uniquePID);
 
-        System.out.println("Please enter patient name: ");
+        System.out.print("Please enter patient name: ");
         String patientName = inputString.nextLine();
         patient.setPatientName(patientName);
 
-        System.out.println("Please enter patient age: ");
+        System.out.print("Please enter patient age: ");
         int age = input.nextInt();
         patient.setAge(age);
 
-        System.out.println("Please enter patient gender: (M / F)");
+        System.out.print("Please enter patient gender: (M / F)");
         String gender = inputString.nextLine().toUpperCase();
         while (!gender.equals("M") && !gender.equals("F")) {
             System.out.println("Invalid input! Please enter 'M' or 'F'.");
@@ -93,11 +93,11 @@ public class BookingService {
         }
         patient.setGender(gender.equals("M") ? "Male" : "Female");
 
-        System.out.println("Please enter patient address: ");
+        System.out.print("Please enter patient address: ");
         String address = inputString.nextLine();
         patient.setAddress(address);
 
-        System.out.println("Please enter patient phone number: ");
+        System.out.print("Please enter patient phone number: ");
         String phoneNumber = inputString.nextLine();
         patient.setPhone(phoneNumber);
 
