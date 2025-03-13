@@ -66,7 +66,8 @@ public class BookingService {
         System.out.println("\nEnter the respective ID you may wish an appointment (enter 0 to exit): ");
         int physioId = input.nextInt();
 
-        if (physioId == 0) {
+        if (!(helpers.isValidPhsio(physioId))){
+            System.out.println("Invalid Doctor ID.");
             System.out.println("Thank you for visiting Boost Physio Clinic, have a nice day.");
             return;
         }

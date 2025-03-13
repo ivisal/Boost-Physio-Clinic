@@ -14,7 +14,7 @@ public class Physio {
 
         // Add physiotherapists with available time fetched from helpers
         addPhysioByKey("30001", "john", "Physiotherapist", helpers.getTime());
-        addPhysioByKey("30007", "edward", "ENT", "1 PM - 4 PM");
+        addPhysioByKey("30002", "edward", "ENT", "1 PM - 4 PM");
     }
 
     // Method to add a new physiotherapist by key

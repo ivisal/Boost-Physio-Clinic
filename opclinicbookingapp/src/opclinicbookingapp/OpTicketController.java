@@ -34,17 +34,29 @@ public class OpTicketController {
         while (running) {
             listUserActions(step);
             int choice = input.nextInt();
-
-            switch (choice) {
-                case 1 -> bookingService.bookAnAppointment();
-                case 2 -> viewAppointments();
-                case 3 -> cancelAppointment();
-                case 4 -> {
-                    System.out.println("Exit");
-                    running = false;
+            if(step == 0){
+                switch (choice) {
+                    case 1 -> bookingService.bookAnAppointment();
+                    case 2 ->{
+                        System.out.println("Exit");
+                        running = false;
+                    }
+                    default -> System.out.println("Invalid choice! Try again.");
                 }
-                default -> System.out.println("Invalid choice! Try again.");
+            }else{
+                switch (choice) {
+                    case 1 -> bookingService.bookAnAppointment();
+                    case 2 -> viewAppointments();
+                    case 3 -> cancelAppointment();
+                    case 4 -> {
+                        System.out.println("Exit");
+                        running = false;
+                    }
+                    default -> System.out.println("Invalid choice! Try again.");
+                }
             }
+
+
             step++;
         }
     }
