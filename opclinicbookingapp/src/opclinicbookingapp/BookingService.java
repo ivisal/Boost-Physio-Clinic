@@ -10,10 +10,11 @@ public class BookingService {
     private Scanner input = new Scanner(System.in);
     private Scanner inputString = new Scanner(System.in);
     helpersFunction helpers = new helpersFunction();
+    Physio physio = new Physio();
     private AppointmentManager appointmentManager;
     private HashMap<Integer, Patient> patients;
     public String throwMessage = "Ooho!! Something error occured. Please try again.";
-    Physio physio = new Physio();
+
 
     public BookingService(AppointmentManager appointmentManager) {
         this.appointmentManager = appointmentManager;
@@ -63,7 +64,7 @@ public class BookingService {
         System.out.println();
         typeOfAppointment();
 
-        System.out.println("\nEnter the respective ID you may wish an appointment (enter 0 to exit): ");
+        System.out.print("\nEnter the respective ID you may wish an appointment (enter 0 to exit): ");
         int physioId = input.nextInt();
 
         if (!(helpers.isValidPhsio(physioId))){
